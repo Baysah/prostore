@@ -1,4 +1,3 @@
-
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/db/prisma';
@@ -33,10 +32,7 @@ export const config = {
         // fetch user from db
         const user = await prisma.user.findFirst({
           where: {
-            OR: [
-              { email: credentials.email as string },
-              { email: credentials.email.toLowerCase() as string },
-            ],
+            email: credentials.email as string,
           },
         });
 
