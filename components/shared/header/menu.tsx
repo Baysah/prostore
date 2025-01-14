@@ -1,10 +1,19 @@
-import { Button } from "@/components/ui/button";
-import ThemeToggler from "./mode-toggle";
-import Link from "next/link";
-import { EllipsisVertical, ShoppingCartIcon, UserIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from '@/components/ui/button';
+import ThemeToggler from './mode-toggle';
+import Link from 'next/link';
+import { auth } from '@/auth';
+import { EllipsisVertical, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import SignOutForm from '@/components/SignOutForm';
 
-const Menu = () => {
+const Menu = async() => {
+  const session = await auth();
   return (
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full max-w-xs">
@@ -16,10 +25,14 @@ const Menu = () => {
           </Link>
         </Button>
         <Button asChild variant={'default'}>
-          <Link href={'/sign-in'}>
-            <UserIcon />
-            Sign In
-          </Link>
+          {session ? (
+            <SignOutForm />
+          ) : (
+            <Link href={'/signin'}>
+              <UserIcon />
+              Sign In
+            </Link>
+          )}
         </Button>
       </nav>
       <nav className="md:hidden">
@@ -37,7 +50,7 @@ const Menu = () => {
               </Link>
             </Button>
             <Button asChild variant={'default'}>
-              <Link href={'/sign-in'}>
+              <Link href={'/signin'}>
                 <UserIcon />
                 Sign In
               </Link>

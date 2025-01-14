@@ -21,3 +21,27 @@ export const insertProductSchema = z.object({
   banner: z.string().nullable(),
   price: currency,
 });
+
+//Schema for signing users in
+export const signInFormSchema = z.object({
+  email: z.string().email("Email is invalid"),
+  password: z.string().min(8, 'Password must be atleast 8 characters'),
+});
+
+//Schema for User Signup
+export const signUpFormSchema = z
+  .object({
+    name: z.string().min(3, 'Name must be atleast 3 characters'),
+    email: z.string().email('Email is invalid'),
+    password: z.string().min(8, 'Password must be atleast 8 characters'),
+    confirmPassword: z.string().min(8, 'Password must be atleast 8 characters'),
+  })
+  .superRefine((val, ctx) => {
+    if (val.password !== val.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Password is not the same as confirm password',
+        path: ['confirmPassword'],
+      });
+    }
+  });

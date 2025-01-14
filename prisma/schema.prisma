@@ -38,7 +38,7 @@ model User {
   emailVerified DateTime? @db.Timestamp(6)
   image         String?
   password      String?
-  role          Role      @default(user)
+  role          String    @default("user")
   address       Json?     @db.Json
   paymentMethod String?
   account       Account[]
@@ -88,7 +88,3 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum Role {
-  user
-  admin
-}
