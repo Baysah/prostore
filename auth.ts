@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/db/prisma';
@@ -64,6 +66,13 @@ export const config = {
     async session({ session, token, user, trigger }: any) {
       //set the user ID from token
       session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
+      
+      console.log("Token", token);
+      console.log("Session", session);
+
+      
 
       //if there is an update, set the username
       if (trigger === 'update') {
@@ -72,6 +81,30 @@ export const config = {
 
       return session;
     },
+    async jwt({token, user, trigger, session}: any){
+
+      //Assign user fields to the token
+      if(user){
+        token.role = user.role;
+
+        //checn if the user no name
+        if(user.name === 'No Name'){
+          token.name = user.email!.split('@')[0];
+
+
+          //update db with token name
+          await prisma.user.update({
+            where: {
+              id: user.id
+            },
+            data: {
+              name: token.name
+            }
+          })
+        }
+      }
+      return token;
+    }
   },
 } satisfies NextAuthConfig;
 
