@@ -9,7 +9,6 @@ import { signInWithCredentials } from '@/lib/actions/user.actions';
 import { useSearchParams } from 'next/navigation';
 
 const SignInForm = () => {
-
   const [data, action] = useActionState(signInWithCredentials, {
     success: false,
     message: '',
@@ -17,7 +16,6 @@ const SignInForm = () => {
   const searchParams = useSearchParams();
 
   const callbackUrl = searchParams.get('callbackUrl') || '/';
-
 
   const SignInButton = () => {
     const { pending } = useFormStatus();
@@ -30,8 +28,13 @@ const SignInForm = () => {
   };
   return (
     <form action={action} className="flex flex-col space-y-6">
+      <input
+        type="hidden"
+        className="hidden"
+        name="callbackUrl"
+        value={callbackUrl}
+      />
       <div>
-        <input type="hidden" className="hidden" name='callbackUrl' value={callbackUrl} />
         <Label htmlFor="email">Email</Label>
         <Input
           type="email"

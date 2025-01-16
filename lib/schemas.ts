@@ -24,7 +24,7 @@ export const insertProductSchema = z.object({
 
 //Schema for signing users in
 export const signInFormSchema = z.object({
-  email: z.string().email("Email is invalid"),
+  email: z.string().email('Email is invalid'),
   password: z.string().min(8, 'Password must be atleast 8 characters'),
 });
 
@@ -36,12 +36,9 @@ export const signUpFormSchema = z
     password: z.string().min(8, 'Password must be atleast 8 characters'),
     confirmPassword: z.string().min(8, 'Password must be atleast 8 characters'),
   })
-  .superRefine((val, ctx) => {
-    if (val.password !== val.confirmPassword) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Password is not the same as confirm password',
-        path: ['confirmPassword'],
-      });
+  .refine(
+    (val) => val.password === val.confirmPassword, {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
     }
-  });
+  );

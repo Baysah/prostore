@@ -10,13 +10,23 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { APP_NAME } from '@/lib/constants';
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
 import SignUpForm from '@/components/SignUpForm';
 
 export const metadata: Metadata = {
   title: 'Sign In',
 };
 
-const SignUpPage = () => {
+const SignInPage = async (props: {
+  searchParams: Promise<{ callbackUrl: string }>;
+}) => {
+  const { callbackUrl } = await props.searchParams;
+
+  const session = await auth();
+  if (session) {
+    redirect(callbackUrl || '/');
+  }
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
@@ -32,7 +42,7 @@ const SignUpPage = () => {
           </Link>
           <CardTitle className="text-center">Sign Up</CardTitle>
           <CardDescription className="text-center">
-            Sign up for a new account
+            Create an account
           </CardDescription>
         </CardHeader>
         <CardContent className="mt-4 space-y-4">
@@ -51,4 +61,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
