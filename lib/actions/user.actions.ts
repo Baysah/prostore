@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use server';
 import { signInFormSchema } from '@/lib/schemas';
 import { signIn, signOut } from '@/auth';
@@ -30,5 +29,4 @@ export const signInWithCredentials = async (
 // Sign out the user
 export const signOutUser = async () => {
   await signOut();
-  return { success: true, message: 'Signed out successfully' };
 };
