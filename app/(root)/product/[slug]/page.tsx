@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { getProductBySlug } from '@/lib/actions/product.actions';
+import { getMyCart } from '@/lib/actions/cart.actions';
 
 import ProductPrice from '@/components/shared/product/ProductPrice';
 import ProductImages from '@/components/shared/product/ProductImages';
@@ -16,6 +17,8 @@ const SingleProductPage = async (props: {
   if (!product) {
     notFound();
   }
+
+  const cart = await getMyCart();
 
   return (
     <section>
@@ -74,6 +77,7 @@ const SingleProductPage = async (props: {
                       qty: 1,
                       image: product.images![0],
                     }}
+                    cart={cart}
                   />
                 </div>
               )}
