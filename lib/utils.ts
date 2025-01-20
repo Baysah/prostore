@@ -47,12 +47,30 @@ export function formatError(error: any) {
 }
 
 //Round number to 2 decimal places
-export const round2 = (val:number | string) => {
-  if(typeof val === 'number'){
+export const round2 = (val: number | string) => {
+  if (typeof val === 'number') {
     return Math.round((val + Number.EPSILON) * 100) / 100;
   } else if (typeof val === 'string') {
     return Math.round((Number(val) + Number.EPSILON) * 100) / 100;
   } else {
     throw new Error('Value is not a number or string');
   }
-}
+};
+
+//Format Currency
+export const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+});
+
+//Format Currency using CURRENCY_FORMATTER
+export const formatCurrency = (amount: number | string | null) => {
+  if(typeof amount === 'number'){
+    return CURRENCY_FORMATTER.format(amount);
+  } else if (typeof amount === 'string') {
+    return CURRENCY_FORMATTER.format(Number(amount));
+  } else {
+    return 'NaN';
+  }
+};

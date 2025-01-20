@@ -63,4 +63,18 @@ export const signUpFormSchema = z
     userId: z.string().optional().nullable(),
   })
 
+  //Schema for shipping address
+  export const shippingAddressSchema = z.object({
+    fullName: z.string().min(3, 'Full name must be atleast 3 characters'),
+    streetAddress: z
+      .string()
+      .min(3, 'Street address must be atleast 3 characters'),
+    city: z.string().min(3, 'City must be atleast 3 characters'),
+    state: z.string().min(2, 'State must be atleast 2 characters'),
+    postalCode: z.string().min(5, 'Postal Code must be atleast 5 characters'),
+    country: z.string().min(3, 'Country is required'),
+    lat: z.number().optional(),
+    lng: z.number().optional(),
+  });
+
 
