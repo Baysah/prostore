@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 import { CartItem, Cart } from '@/types';
 import { Button } from '@/components/ui/button';

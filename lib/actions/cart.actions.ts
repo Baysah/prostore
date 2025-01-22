@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use server';
 import { CartItem } from '@/types';
 import { cookies } from 'next/headers';

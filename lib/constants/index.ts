@@ -36,3 +36,5 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
 export const DEFAULT_PAYMENT_METHOD =
   process.env.DEFAULT_PAYMENT_METHOD || 'CreditCard';
 
+export const ORDER_PER_PAGE = Number(process.env.ORDER_PER_PAGE) || 10;
+

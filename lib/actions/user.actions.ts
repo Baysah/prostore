@@ -144,3 +144,36 @@ export const updateUserPaymentMethod = async (
     return { success: false, message: formatError(error) };
   }
 };
+
+//update user profile
+export const updateProfile = async (user : {name: string; email: string}) => {
+  try {
+    const session = await auth();
+    //fetch the current user from the db
+    const currentUser = await prisma.user.findFirst({
+      where: {
+        id: session?.user?.id,
+      }
+    })
+    if (!currentUser) throw new Error('User not found');
+
+    //update the user's name
+    await prisma.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        name: user.name,
+      }
+    })
+    return {
+      success: true,
+      message: 'Profile updated successfully',
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    }
+  }
+}

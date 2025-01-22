@@ -85,7 +85,7 @@ export const config = {
         token.id = user.id;
         token.role = user.role;
 
-        //checn if the user no name
+        //check if the user no name
         if (user.name === 'No Name') {
           token.name = user.email!.split('@')[0];
 
@@ -130,6 +130,10 @@ export const config = {
             }
           }
         }
+      }
+      //handle session updates
+      if(session?.user.name && trigger === 'update'){
+        token.name = session.user.name
       }
       return token;
     },

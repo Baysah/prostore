@@ -109,4 +109,17 @@ export const signUpFormSchema = z
     qty: z.number().int().nonnegative('Quantity must be a positive number'),
   })
 
+  export const paymentResultSchema = z.object({
+    id: z.string(),
+    status: z.string(),
+    email_address: z.string(),
+    pricePaid: z.string(),
+  })
+
+  //update user profile schema
+  export const updateProfileSchema = z.object({
+    name: z.string().min(3, 'Name must be atleast 3 characters'),
+    email: z.string().email('Email is invalid'),
+  })
+
 

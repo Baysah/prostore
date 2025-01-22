@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { cartItemSchema, insertCartSchema, insertProductSchema, shippingAddressSchema, insertOrderItemSchema, insertOrderSchema } from "@/lib/schemas";
+import { cartItemSchema, insertCartSchema, insertProductSchema, shippingAddressSchema, insertOrderItemSchema, insertOrderSchema, paymentResultSchema } from "@/lib/schemas";
 export type Product = z.infer<typeof insertProductSchema> &{
     id: string;
     rating: string;
@@ -21,3 +21,5 @@ export type Order = z.infer<typeof insertOrderSchema> & {
     orderitems : OrderItem[];
     user: {name: string, email: string};
 }
+
+export type PaymentResult = z.infer<typeof paymentResultSchema>;

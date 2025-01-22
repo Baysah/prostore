@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import OrderDetailsTable from "./orderDetailsTable";
 import { ShippingAddress } from "@/types";
 
-export const metaData: Metadata = {
-    title: 'Order Details',
+
+export const metadata: Metadata = {
+  title: 'Order Details',
 };
 
 interface Props {
@@ -29,10 +30,13 @@ const OrderDetailsPage = async({ params }: Props) => {
 
     return (
       <>
-        <OrderDetailsTable order={{
+        <OrderDetailsTable
+          order={{
             ...order,
             shippingAddress: order.shippingAddress as ShippingAddress,
-        }} />
+          }}
+          paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
+        />
       </>
     );
 }
