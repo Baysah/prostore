@@ -76,6 +76,13 @@ export const formatCurrency = (amount: number | string | null) => {
   }
 };
 
+//Format Number
+const NUMBER_FORMATTER = new Intl.NumberFormat('en-US')
+
+export const formatNumber = (number: number) => {
+  return NUMBER_FORMATTER.format(number)
+}
+
 //convert camelcase
 export const camelCaseToTitleCase = (str: string) => {
   return str.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
