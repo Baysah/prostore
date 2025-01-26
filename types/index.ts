@@ -1,9 +1,13 @@
 import { z } from "zod";
-import { cartItemSchema, insertCartSchema, insertProductSchema, shippingAddressSchema, insertOrderItemSchema, insertOrderSchema, paymentResultSchema } from "@/lib/schemas";
+import { cartItemSchema, insertCartSchema, insertProductSchema, shippingAddressSchema, insertOrderItemSchema, insertOrderSchema, paymentResultSchema, signUpFormSchema } from "@/lib/schemas";
 export type Product = z.infer<typeof insertProductSchema> &{
     id: string;
     rating: string;
     createdAt: Date;
+}
+
+export type User = z.infer<typeof signUpFormSchema> & {
+    id: string;
 }
 
 

@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import ProductForm from '@/components/ProductForm';
 import { auth } from '@/auth';
 import { getProductById } from '@/lib/actions/product.actions';
 import { notFound } from 'next/navigation';
+import ProductForm from '@/components/ProductForm';
 
 export const metadata: Metadata = {
   title: 'Update Product',
@@ -13,6 +13,7 @@ interface Props {
     id: string;
   }>;
 }
+
 
 const AdminProductEditPage = async ({ params }: Props) => {
   //get the order id from the url

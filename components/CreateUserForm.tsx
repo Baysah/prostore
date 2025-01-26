@@ -2,38 +2,29 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import {  signUpDefaultValues } from '@/lib/constants';
+import { signUpDefaultValues } from '@/lib/constants';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import {  signUpWithCredentials } from '@/lib/actions/user.actions';
-import { useSearchParams } from 'next/navigation';
+import { createUser } from '@/lib/actions/user.actions';
+import { Select, SelectContent, SelectItem, SelectTrigger } from './ui/select';
 
-const SignUpForm = () => {
-  const [data, action] = useActionState(signUpWithCredentials, {
+const CreateUserForm = () => {
+  const [data, action] = useActionState(createUser, {
     success: false,
     message: '',
   });
-  const searchParams = useSearchParams();
-
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const SignUpButton = () => {
     const { pending } = useFormStatus();
 
     return (
       <Button className="w-full" type="submit" disabled={pending}>
-        {pending ? 'Submitting...' : 'Sign Up'}
+        {pending ? 'Submitting...' : 'Create User'}
       </Button>
     );
   };
   return (
     <form action={action} className="flex flex-col space-y-6">
-      <input
-        type="hidden"
-        className="hidden"
-        name="callbackUrl"
-        value={callbackUrl}
-      />
       <div>
         <Label htmlFor="name">Name</Label>
         <Input
@@ -55,6 +46,16 @@ const SignUpForm = () => {
           autoComplete="email"
           defaultValue={signUpDefaultValues.email}
         />
+      </div>
+      <div>
+        <Label htmlFor="role">Role</Label>
+        <Select name="role">
+          <SelectTrigger>Please Select A Role</SelectTrigger>
+          <SelectContent>
+            <SelectItem value="user">User</SelectItem>
+            <SelectItem value="admin">Admin</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div>
         <Label htmlFor="password">Password</Label>
@@ -86,4 +87,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default CreateUserForm;

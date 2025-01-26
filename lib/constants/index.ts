@@ -56,3 +56,16 @@ export const DEFAULT_PAYMENT_METHOD =
 
 export const ORDER_PER_PAGE = Number(process.env.ORDER_PER_PAGE) || 10;
 
+export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 10;
+
+export const USER_ROLES = [
+  {
+    label: 'User',
+    value: 'user'
+  },
+  {
+    label: 'Admin',
+    value: 'admin'
+  }
+]
+

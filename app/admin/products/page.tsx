@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { deleteProduct, getAllProducts } from '@/lib/actions/product.actions';
 import { formatCurrency, formatId } from '@/lib/utils';

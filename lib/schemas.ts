@@ -9,6 +9,7 @@ const currency = z
     'Price must have exactly 2 decimal places'
   );
 
+
 //Schema for inserting a new product
 export const insertProductSchema = z.object({
   name: z.string().min(3, 'Name must be atleast 3 characters'),
@@ -48,6 +49,21 @@ export const signUpFormSchema = z
     }
   );
 
+  //Schema for Creating User - Admin
+export const createUserSchema = z
+  .object({
+    name: z.string().min(3, 'Name must be atleast 3 characters'),
+    email: z.string().email('Email is invalid'),
+    role: z.enum(['user', 'admin']),
+    password: z.string().min(8, 'Password must be atleast 8 characters'),
+    confirmPassword: z.string().min(8, 'Password must be atleast 8 characters'),
+  })
+  .refine(
+    (val) => val.password === val.confirmPassword, {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    }
+  );
   //Cart Schemas
   export const cartItemSchema = z.object({
     productId: z.string().min(1, 'Product is required'),
@@ -125,5 +141,13 @@ export const signUpFormSchema = z
     name: z.string().min(3, 'Name must be atleast 3 characters'),
     email: z.string().email('Email is invalid'),
   })
+
+
+  //Schema for updating user
+  export const updateUserSchema = updateProfileSchema.extend({
+      id: z.string().min(1, 'User id is required'),
+      role: z.string().min(1, 'Role is required'),
+  })
+  
 
 

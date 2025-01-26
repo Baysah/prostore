@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
 import ProductForm from '@/components/ProductForm';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Create Product',
